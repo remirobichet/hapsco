@@ -1,3 +1,5 @@
-<p>
-  home works!
-</p>
+<ul>
+  <li *ngFor="let item of items | async">
+      <pre>{{ item | json }}</pre>
+  </li>
+</ul>
