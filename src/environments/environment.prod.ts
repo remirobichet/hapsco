@@ -8,5 +8,5 @@ export const environment = {
     storageBucket: "cloud-firestore-hapsco.appspot.com",
     messagingSenderId: "310828279352",
     appId: "1:310828279352:web:f41f578187bd97040ae8cd"
-  };
+  }
 };
