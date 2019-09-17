@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
@@ -17,7 +16,4 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.items = this.db.collection('/items').valueChanges();
   }
-
-  // @TODO npm install firebase @angular/fire --save
-
 }
