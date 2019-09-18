@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common'
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -22,7 +23,10 @@ import { HomeComponent } from './home/home.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ChartsModule
   ],
-  providers: [AngularFirestore],
+  providers: [
+    AngularFirestore,
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

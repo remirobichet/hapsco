@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { DatePipe } from '@angular/common'
 import { ChartDataSets, ChartOptions} from 'chart.js';
 import { Label, Color } from 'ng2-charts';
+import { Hapsco } from '../_models/hapsco.model';
+import { HapscoService } from '../_services/hapsco.service';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,9 @@ import { Label, Color } from 'ng2-charts';
 export class HomeComponent implements OnInit {
 
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    { data: [], label: 'Hapsco' },
   ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
@@ -54,31 +55,16 @@ export class HomeComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
 
-  public items: Observable<any[]>;
-
-  constructor(private db: AngularFirestore) { }
+  constructor(public datepipe: DatePipe, private hapscoService: HapscoService) { }
 
   ngOnInit() {
-    this.items = this.db.collection('/items').valueChanges();
+    this.hapscoService.getHapsco().subscribe((data: Hapsco[]) => {
+      this.lineChartData[0].data = data.map(obj => {return obj.value });
+      this.lineChartLabels = data.map(obj => { return this.datepipe.transform(new Date(obj.date.toDate()), 'dd/MM/yy')});
+    });
   }
 }
