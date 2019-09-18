@@ -63,6 +63,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.hapscoService.getHapsco().subscribe((data: Hapsco[]) => {
+      // sorting by date
+      data.sort((a,b) => (a.date.seconds > b.date.seconds) ? 1 : ((b.date.seconds > a.date.seconds) ? -1 : 0));
       this.lineChartData[0].data = data.map(obj => {return obj.value });
       this.lineChartLabels = data.map(obj => { return this.datepipe.transform(new Date(obj.date.toDate()), 'dd/MM/yy')});
     });
