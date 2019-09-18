@@ -9,19 +9,19 @@ export class HapscoService {
   constructor(private db: AngularFirestore) { }
 
   getHapsco() {
-    return this.db.collection('items').valueChanges();
+    return this.db.collection<Hapsco>('items').valueChanges();
   }
 
-  createHapsco(hapsco: Hapsco){
-    return this.db.collection('items').add(hapsco);
+  createHapsco(hapsco: Hapsco) {
+    return this.db.collection<Hapsco>('items').add({... hapsco});
   }
 
-  updateHapsco(hapsco: Hapsco){
+  updateHapsco(hapsco: Hapsco) {
     delete hapsco.date;
     this.db.doc('items/' + hapsco.date).update(hapsco);
   }
 
-  deleteHapsco(hapscoId: string){
+  deleteHapsco(hapscoId: string) {
     this.db.doc('items/' + hapscoId).delete();
   }
 }
