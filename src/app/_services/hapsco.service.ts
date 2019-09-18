@@ -13,15 +13,15 @@ export class HapscoService {
   }
 
   createHapsco(hapsco: Hapsco){
-    return this.db.collection('policies').add(hapsco);
+    return this.db.collection('items').add(hapsco);
   }
 
   updateHapsco(hapsco: Hapsco){
     delete hapsco.date;
-    this.db.doc('policies/' + hapsco.date).update(hapsco);
+    this.db.doc('items/' + hapsco.date).update(hapsco);
   }
 
   deleteHapsco(hapscoId: string){
-    this.db.doc('policies/' + hapscoId).delete();
+    this.db.doc('items/' + hapscoId).delete();
   }
 }
