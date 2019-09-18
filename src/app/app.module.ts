@@ -12,13 +12,13 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 
 import { HomeComponent } from './home/home.component';
-import { AddComponent } from './add/add.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AddComponent
+    EditComponent
   ],
   imports: [
     BrowserModule,

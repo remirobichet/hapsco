@@ -6,11 +6,11 @@ import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.sass']
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.sass']
 })
-export class AddComponent implements OnInit {
+export class EditComponent implements OnInit {
 
   hapsco: Hapsco = new Hapsco();
   formValue: number;
