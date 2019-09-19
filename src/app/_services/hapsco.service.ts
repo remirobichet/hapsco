@@ -9,7 +9,7 @@ export class HapscoService {
   constructor(private db: AngularFirestore) { }
 
   getHapsco() {
-    return this.db.collection<Hapsco>('items').valueChanges();
+    return this.db.collection<Hapsco>('items').snapshotChanges();
   }
 
   createHapsco(hapsco: Hapsco) {

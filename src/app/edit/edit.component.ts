@@ -4,6 +4,9 @@ import Timestamp = firestore.Timestamp;
 
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
+import { DateUtils } from '../_helpers/date.utile';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit',
@@ -15,29 +18,37 @@ export class EditComponent implements OnInit {
   hapsco: Hapsco = new Hapsco();
   formValue: number;
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  ];
+  displayedColumns: string[] = ['date', 'value', 'actions'];
+  dataSource: Hapsco[];
 
 
-  constructor(private hapscoService: HapscoService) { }
+  constructor(public datepipe: DatePipe, private hapscoService: HapscoService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.hapscoService.getHapsco().subscribe((data) => {
+      this.dataSource = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as Hapsco;
+      });
+      DateUtils.sortByDate(this.dataSource);
+      console.log(this.dataSource);
+    });
+  }
 
   addHapsco() {
     this.hapsco.value = this.formValue;
     this.hapsco.date = Timestamp.fromDate(new Date());
     this.hapscoService.createHapsco(this.hapsco);
+  }
+
+  deleteHapsco(hapsco) {
+    this.hapscoService.deleteHapsco(hapsco);
+  }
+
+  toFirebaseDate(date: firebase.firestore.Timestamp): Date {
+    return DateUtils.fireBaseDateToDate(date);
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 import { ChartDataSets, ChartOptions} from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
+import { DateUtils } from '../_helpers/date.utile';
 
 @Component({
   selector: 'app-home',
@@ -62,11 +63,17 @@ export class HomeComponent implements OnInit {
   constructor(public datepipe: DatePipe, private hapscoService: HapscoService) { }
 
   ngOnInit() {
-    this.hapscoService.getHapsco().subscribe((data: Hapsco[]) => {
+    this.hapscoService.getHapsco().subscribe((data) => {
       // sorting by date
-      data.sort((a,b) => (a.date.seconds > b.date.seconds) ? 1 : ((b.date.seconds > a.date.seconds) ? -1 : 0));
-      this.lineChartData[0].data = data.map(obj => {return obj.value });
-      this.lineChartLabels = data.map(obj => { return this.datepipe.transform(new Date(obj.date.toDate()), 'dd/MM/yy')});
+      const element = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as Hapsco;
+      });
+      DateUtils.sortByDate(element);
+      this.lineChartData[0].data = element.map(obj =>  obj.value);
+      this.lineChartLabels = element.map(obj => this.datepipe.transform(new Date(DateUtils.fireBaseDateToDate(obj.date)), 'dd/MM/yy'));
     });
   }
 }
