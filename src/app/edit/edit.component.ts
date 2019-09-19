@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
-import Timestamp = firebase.firestore.Timestamp;
 
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
@@ -39,7 +38,7 @@ export class EditComponent implements OnInit {
 
   addHapsco() {
     this.hapsco.value = this.formValue;
-    this.hapsco.date = Timestamp.fromDate(new Date());
+    this.hapsco.date = firebase.firestore.Timestamp.fromDate(new Date());
     this.hapscoService.createHapsco(this.hapsco);
   }
 

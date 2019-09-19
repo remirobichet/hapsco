@@ -1,9 +1,8 @@
 import { Hapsco } from '../_models/hapsco.model';
 import * as firebase from 'firebase/app';
-import Timestamp = firebase.firestore.Timestamp;
 
 export class DateUtils {
-    static fireBaseDateToDate(e: Timestamp): Date {
+    static fireBaseDateToDate(e: firebase.firestore.Timestamp): Date {
         return new Date(e.toDate());
     }
 
