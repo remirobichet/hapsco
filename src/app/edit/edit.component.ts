@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {firestore} from 'firebase/app';
-import Timestamp = firestore.Timestamp;
+import * as firebase from 'firebase/app';
+import Timestamp = firebase.firestore.Timestamp;
 
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
