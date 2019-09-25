@@ -1,0 +1,12 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 60% 40%;
+
+  > * {
+    padding: 15px;
+  }
+
+  table {
+    width: 100%;
+  }
+}

@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.sass']
+  styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
 
