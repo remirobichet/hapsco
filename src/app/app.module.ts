@@ -7,7 +7,9 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +32,9 @@ import { EditComponent } from './edit/edit.component';
     ChartsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatIconModule,
+    MatTableModule,
+    MatToolbarModule
 
   ],
   providers: [

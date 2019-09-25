@@ -1,1 +1,13 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Hapsco</span>
+    <span class="spacer"></span>
+    <a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{exact: true}">
+      <mat-icon class="icon" aria-hidden="false" aria-label="home icon">home</mat-icon>
+    </a>
+    <a routerLinkActive="active" routerLink="edit">
+      <mat-icon class="icon" aria-hidden="false" aria-label="edit icon">edit</mat-icon>
+    </a>
+  </mat-toolbar-row>
+</mat-toolbar>
 <router-outlet></router-outlet>
