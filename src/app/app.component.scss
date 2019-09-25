@@ -1,0 +1,22 @@
+
+@import '../variables.scss';
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+a {
+  display: flex;
+  text-decoration: none;
+  color: $white;
+
+  &.active {
+    .icon {
+      color: mat-color($my-custom-primary, 200);
+    }
+  }
+
+  .icon {
+    padding: 0 14px;
+  }
+}
