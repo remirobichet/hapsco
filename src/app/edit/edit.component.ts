@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 import { FormControl } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
@@ -17,40 +20,48 @@ import { isNullOrUndefined } from 'util';
 })
 export class EditComponent implements OnInit {
 
-  date: FormControl;
   formValue: number = 50;
+  formDate: FormControl = new FormControl(new Date());
 
   displayedColumns: string[] = ['date', 'value', 'actions'];
-  dataSource: Hapsco[];
+  dataSource: MatTableDataSource<Hapsco>;
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public datepipe: DatePipe, private hapscoService: HapscoService) { }
 
   ngOnInit() {
+    this.sort.sort(<MatSortable>{
+        id: 'date',
+        start: 'desc'
+      }
+    );
     this.hapscoService.getHapsco().subscribe((data) => {
-      this.dataSource = data.map(e => {
+      this.dataSource = new MatTableDataSource(data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data()
         } as Hapsco;
-      });
-      DateUtils.sortByDate(this.dataSource);
-      if (Array.isArray(this.dataSource) && this.dataSource.length) {
-        let lastDate = new Date(this.dataSource.slice(-1).pop().date.toDate());
-        let lastDatePlusOneDay = new Date(this.dataSource.slice(-1).pop().date.toDate());
+      }));
+      DateUtils.sortByDate(this.dataSource.data);
+      if (Array.isArray(this.dataSource.data) && this.dataSource.data.length) {
+        let lastDate = new Date(this.dataSource.data.slice(-1).pop().date.toDate());
+        let lastDatePlusOneDay = new Date(this.dataSource.data.slice(-1).pop().date.toDate());
         lastDatePlusOneDay.setDate(lastDate.getDate() + 1);
-        this.date = new FormControl(new Date(lastDatePlusOneDay));
+        this.formDate = new FormControl(new Date(lastDatePlusOneDay));
       } else {
-        this.date = new FormControl(new Date());
+        this.formDate = new FormControl(new Date());
       }
-      console.log(this.dataSource);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
   addHapsco() {
     let newHapsco: Hapsco = new Hapsco();
     newHapsco.value = this.formValue;
-    newHapsco.date = Timestamp.fromDate(new Date(this.date.value));
+    newHapsco.date = Timestamp.fromDate(new Date(this.formDate.value));
     if (!isNullOrUndefined(this.formValue)) {
       this.hapscoService.createHapsco(newHapsco);
     }
