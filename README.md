@@ -5,7 +5,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Todo
 
 - /edit --> add update feature
-- /edit --> use angular material table pagination
 - /edit --> rework add row at the end instead of add section
 - add 'description' for each hapsco
 - rework PMA
