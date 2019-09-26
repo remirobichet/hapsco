@@ -17,8 +17,7 @@ import { isNullOrUndefined } from 'util';
 })
 export class EditComponent implements OnInit {
 
-  hapsco: Hapsco = new Hapsco();
-  date = new FormControl(new Date());
+  date: FormControl = new FormControl(new Date());
   formValue: number = 50;
 
   displayedColumns: string[] = ['date', 'value', 'actions'];
@@ -36,15 +35,24 @@ export class EditComponent implements OnInit {
         } as Hapsco;
       });
       DateUtils.sortByDate(this.dataSource);
+      if (Array.isArray(this.dataSource) && this.dataSource.length) {
+        let lastDate = new Date(this.dataSource.slice(-1).pop().date.toDate());
+        let lastDatePlusOneDay = new Date();
+        lastDatePlusOneDay.setDate(lastDate.getDate() + 1);
+        this.date = new FormControl(new Date(lastDatePlusOneDay));
+      } else {
+        this.date = new FormControl(new Date());
+      }
       console.log(this.dataSource);
     });
   }
 
   addHapsco() {
-    this.hapsco.value = this.formValue;
-    this.hapsco.date = Timestamp.fromDate(new Date(this.date.value));
+    let newHapsco: Hapsco = new Hapsco();
+    newHapsco.value = this.formValue;
+    newHapsco.date = Timestamp.fromDate(new Date(this.date.value));
     if (!isNullOrUndefined(this.formValue)) {
-      this.hapscoService.createHapsco(this.hapsco);
+      this.hapscoService.createHapsco(newHapsco);
     }
   }
 
