@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
+import { FormControl } from '@angular/forms';
 
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
 import { DateUtils } from '../_helpers/date.utile';
 import { DatePipe } from '@angular/common';
+import { isNullOrUndefined } from 'util';
 
 
 @Component({
@@ -16,7 +18,8 @@ import { DatePipe } from '@angular/common';
 export class EditComponent implements OnInit {
 
   hapsco: Hapsco = new Hapsco();
-  formValue: number;
+  date = new FormControl(new Date());
+  formValue: number = 50;
 
   displayedColumns: string[] = ['date', 'value', 'actions'];
   dataSource: Hapsco[];
@@ -39,8 +42,10 @@ export class EditComponent implements OnInit {
 
   addHapsco() {
     this.hapsco.value = this.formValue;
-    this.hapsco.date = Timestamp.fromDate(new Date());
-    this.hapscoService.createHapsco(this.hapsco);
+    this.hapsco.date = Timestamp.fromDate(new Date(this.date.value));
+    if (!isNullOrUndefined(this.formValue)) {
+      this.hapscoService.createHapsco(this.hapsco);
+    }
   }
 
   deleteHapsco(hapsco) {
