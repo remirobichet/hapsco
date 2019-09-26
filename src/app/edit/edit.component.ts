@@ -17,7 +17,7 @@ import { isNullOrUndefined } from 'util';
 })
 export class EditComponent implements OnInit {
 
-  date: FormControl = new FormControl(new Date());
+  date: FormControl;
   formValue: number = 50;
 
   displayedColumns: string[] = ['date', 'value', 'actions'];
@@ -37,7 +37,7 @@ export class EditComponent implements OnInit {
       DateUtils.sortByDate(this.dataSource);
       if (Array.isArray(this.dataSource) && this.dataSource.length) {
         let lastDate = new Date(this.dataSource.slice(-1).pop().date.toDate());
-        let lastDatePlusOneDay = new Date();
+        let lastDatePlusOneDay = new Date(this.dataSource.slice(-1).pop().date.toDate());
         lastDatePlusOneDay.setDate(lastDate.getDate() + 1);
         this.date = new FormControl(new Date(lastDatePlusOneDay));
       } else {
