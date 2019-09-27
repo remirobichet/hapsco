@@ -44,6 +44,7 @@ export class EditComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data.map(e => {
         return {
           id: e.payload.doc.id,
+          trashVisible: false,
           ...e.payload.doc.data()
         } as Hapsco;
       }));
@@ -64,7 +65,7 @@ export class EditComponent implements OnInit {
   addHapsco() {
     let newHapsco: Hapsco = new Hapsco();
     newHapsco.value = this.formValue;
-    newHapsco.description = this.formDescription;
+    newHapsco.description = this.formDescription ? this.formDescription : '';
     newHapsco.date = Timestamp.fromDate(new Date(this.formDate.value));
     if (!isNullOrUndefined(this.formValue)) {
       this.hapscoService.createHapsco(newHapsco);
