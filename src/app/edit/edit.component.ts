@@ -23,6 +23,7 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 export class EditComponent implements OnInit {
 
   formValue: number = 50;
+  formDescription: string;
   formDate: FormControl = new FormControl(new Date());
 
   displayedColumns: string[] = ['date', 'value', 'description', 'actions'];
@@ -63,6 +64,7 @@ export class EditComponent implements OnInit {
   addHapsco() {
     let newHapsco: Hapsco = new Hapsco();
     newHapsco.value = this.formValue;
+    newHapsco.description = this.formDescription;
     newHapsco.date = Timestamp.fromDate(new Date(this.formDate.value));
     if (!isNullOrUndefined(this.formValue)) {
       this.hapscoService.createHapsco(newHapsco);

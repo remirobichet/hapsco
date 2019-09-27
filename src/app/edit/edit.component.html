@@ -27,8 +27,11 @@
       <mat-paginator [pageSize]="10" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
     </div>
     <div>
-      <mat-form-field class="example-full-width">
+      <mat-form-field>
         <input matInput [(ngModel)]="formValue" [type]="'number'" placeholder="Hapsco">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="formDescription" [type]="'text'" placeholder="Description">
       </mat-form-field>
       <mat-form-field>
           <input matInput [matDatepicker]="picker" placeholder="Date" (dateInput)="formDate = $event" (dateChange)="formDate = $event" [value]="formDate.value">
