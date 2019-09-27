@@ -17,8 +17,9 @@ export class HapscoService {
   }
 
   updateHapsco(hapsco: Hapsco) {
-    delete hapsco.date;
-    this.db.doc('items/' + hapsco.date).update(hapsco);
+    let id = hapsco.id;
+    delete hapsco.id;
+    this.db.doc('items/' + id).update(hapsco);
   }
 
   deleteHapsco(hapscoId: string) {

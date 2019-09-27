@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,12 +24,14 @@ import { environment } from '../environments/environment';
 
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './edit/edit.component';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    EditComponent
+    EditComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,11 @@ import { EditComponent } from './edit/edit.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    DialogBoxComponent
   ],
   providers: [
     AngularFirestore,

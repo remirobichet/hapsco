@@ -5,12 +5,14 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
 import { DateUtils } from '../_helpers/date.utile';
 import { DatePipe } from '@angular/common';
 import { isNullOrUndefined } from 'util';
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 
 @Component({
@@ -29,7 +31,7 @@ export class EditComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(public datepipe: DatePipe, private hapscoService: HapscoService) { }
+  constructor(public datepipe: DatePipe, private hapscoService: HapscoService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.sort.sort(<MatSortable>{
@@ -67,11 +69,22 @@ export class EditComponent implements OnInit {
     }
   }
 
+  updateHapsco(hapsco) {
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '320px',
+      data: hapsco
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.hapscoService.updateHapsco(result);
+    });
+  }
+
   deleteHapsco(hapsco) {
     this.hapscoService.deleteHapsco(hapsco);
   }
 
-  toFirebaseDate(date: Timestamp): Date {
+  fromFirebaseToDate(date: Timestamp): Date {
     return DateUtils.fireBaseDateToDate(date);
   }
 

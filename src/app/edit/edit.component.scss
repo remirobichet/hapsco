@@ -1,6 +1,6 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 80% 20%;
 
   > * {
     padding: 15px;
@@ -8,9 +8,5 @@
 
   table {
     width: 100%;
-  }
-
-  mat-form-field {
-    margin-right: 12px;
   }
 }

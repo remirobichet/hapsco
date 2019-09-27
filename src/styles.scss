@@ -9,3 +9,10 @@ html, body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
+
+mat-form-field,
+.mat-raised-button.mat-primary,
+.mat-raised-button.mat-accent,
+.mat-raised-button.mat-warn {
+  margin-right: 12px;
+}
