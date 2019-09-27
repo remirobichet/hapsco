@@ -1,7 +1,10 @@
 <h3 mat-dialog-title>Modification Hapsco</h3>
 <div mat-dialog-content>
-  <mat-form-field class="example-full-width">
+  <mat-form-field>
       <input matInput [(ngModel)]="localData.value" [type]="'number'" placeholder="Hapsco">
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput [(ngModel)]="localData.description" [type]="'text'" placeholder="Description">
   </mat-form-field>
   <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Date" (dateInput)="localData.date = $event" (dateChange)="localData.date = $event" [value]="localData.date.value">

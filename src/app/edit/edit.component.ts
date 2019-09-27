@@ -25,7 +25,7 @@ export class EditComponent implements OnInit {
   formValue: number = 50;
   formDate: FormControl = new FormControl(new Date());
 
-  displayedColumns: string[] = ['date', 'value', 'actions'];
+  displayedColumns: string[] = ['date', 'value', 'description', 'actions'];
   dataSource: MatTableDataSource<Hapsco>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -76,7 +76,9 @@ export class EditComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.hapscoService.updateHapsco(result);
+      if (!isNullOrUndefined(result)) {
+        this.hapscoService.updateHapsco(result);
+      }
     });
   }
 

@@ -6,4 +6,5 @@ export class Hapsco {
   id: string;
   date: Timestamp;
   value: number;
+  description: string;
 }
