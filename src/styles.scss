@@ -2,7 +2,7 @@
 @import '~normalize.css';
 @import 'variables.scss';
 
-@include angular-material-theme($my-custom-theme);
+@include angular-material-theme($theme);
 
 html, body {
     margin: 0;
