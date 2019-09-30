@@ -27,6 +27,11 @@ export class HomeComponent implements OnInit {
         {
           id: 'y-axis-0',
           position: 'left',
+          ticks: {
+            beginAtZero: true,
+            stepSize: 10,
+            max: 100
+          }
         }
       ]
     },
