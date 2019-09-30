@@ -89,6 +89,13 @@ export class EditComponent implements OnInit {
     this.hapscoService.deleteHapsco(hapsco);
   }
 
+  setTrashVisible(hapsco) {
+    hapsco.trashVisible = true;
+    setTimeout(() => {
+      hapsco.trashVisible = false;
+    }, 2000 );
+  }
+
   fromFirebaseToDate(date: Timestamp): Date {
     return DateUtils.fireBaseDateToDate(date);
   }
