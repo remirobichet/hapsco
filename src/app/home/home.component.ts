@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ChartDataSets, ChartOptions} from 'chart.js';
-import { Label, Color } from 'ng2-charts';
+import { Label, Color, BaseChartDirective } from 'ng2-charts';
+import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import regression from 'regression';
+
 import { Hapsco } from '../_models/hapsco.model';
 import { HapscoService } from '../_services/hapsco.service';
 import { DateUtils } from '../_helpers/date.utile';
@@ -12,6 +15,8 @@ import { DateUtils } from '../_helpers/date.utile';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild(BaseChartDirective, { static: true }) chart;
 
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Hapsco' },
@@ -36,21 +41,17 @@ export class HomeComponent implements OnInit {
       ]
     },
     annotation: {
-      annotations: [
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: 'March',
-          borderColor: 'orange',
-          borderWidth: 2,
-          label: {
-            enabled: true,
-            fontColor: 'orange',
-            content: 'LineAnno'
-          }
-        },
-      ],
+      annotations: [{
+        drawTime: 'afterDraw',
+        id: 'linearRegression',
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        borderColor: 'orange',
+        borderWidth: 2,
+        value: 50,
+        endValue: 50,
+      }],
     },
   };
   public lineChartColors: Color[] = [
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
+  public lineChartPlugins = [pluginAnnotations];
 
   constructor(public datepipe: DatePipe, private hapscoService: HapscoService) { }
 
@@ -78,8 +80,17 @@ export class HomeComponent implements OnInit {
         } as Hapsco;
       });
       DateUtils.sortByDate(element);
+
+      // set linear regression line
+      let linearRegression = regression.linear(Array.from(element.keys()).map(n => [n, +element[n].value]));
+      this.chart.chart.annotation.elements['linearRegression'].options.value = linearRegression.points.shift()[1];
+      this.chart.chart.annotation.elements['linearRegression'].options.endValue = linearRegression.points.pop()[1];
+
       this.lineChartData[0].data = element.map(obj =>  obj.value);
       this.lineChartLabels = element.map(obj => this.datepipe.transform(new Date(DateUtils.fireBaseDateToDate(obj.date)), 'dd/MM/yy'));
+
+      // update chart to apply line
+      this.chart.update();
     });
   }
 }
