@@ -86,11 +86,12 @@ export class HomeComponent implements OnInit {
       this.chart.chart.annotation.elements['linearRegression'].options.value = linearRegression.points.shift()[1];
       this.chart.chart.annotation.elements['linearRegression'].options.endValue = linearRegression.points.pop()[1];
 
+      this.chart.chart.options.tooltips.callbacks.afterLabel = (tooltipItem) => {
+        return element[tooltipItem.index].description;
+      };
+
       this.lineChartData[0].data = element.map(obj =>  obj.value);
       this.lineChartLabels = element.map(obj => this.datepipe.transform(new Date(DateUtils.fireBaseDateToDate(obj.date)), 'dd/MM/yy'));
-
-      // update chart to apply line
-      this.chart.update();
     });
   }
 }
