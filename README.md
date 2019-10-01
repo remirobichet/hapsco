@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Todo
 
+- implement backup
+- add responsive design
 - impove graph design ?
 - add push notification from app (PMA) every day
 - rework PMA
