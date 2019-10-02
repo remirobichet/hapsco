@@ -2,7 +2,7 @@
 
 .wrapper {
   display: grid;
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 100%;
 
   >* {
     padding: 15px;
@@ -64,5 +64,11 @@
 
   .mat-form-field {
     width: 100%;
+  }
+}
+
+@media only screen and (min-width : 768px) {
+  .wrapper {
+    grid-template-columns: 20% 80%;
   }
 }
