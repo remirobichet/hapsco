@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Todo
 
-- implement backup
+- implement backup --> w/ netlify function (button click on app)
 - add responsive design
 - impove graph design ?
 - add push notification from app (PMA) every day
