@@ -28,6 +28,8 @@ export class EditComponent implements OnInit {
 
   displayedColumns: string[] = ['date', 'value', 'description', 'actions'];
   dataSource: MatTableDataSource<Hapsco>;
+  dataSourceForCsv: any[];
+  dateForCsv: string;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -59,6 +61,8 @@ export class EditComponent implements OnInit {
       }
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.createDataSourceForCsv();
+      this.dateForCsv = 'hapsco_save_' + this.datepipe.transform(new Date(), 'dd-MM-yy') + '.csv';
     });
   }
 
@@ -98,6 +102,16 @@ export class EditComponent implements OnInit {
 
   fromFirebaseToDate(date: Timestamp): Date {
     return DateUtils.fireBaseDateToDate(date);
+  }
+
+  createDataSourceForCsv(): void {
+    this.dataSourceForCsv = this.dataSource.data.map(e => {
+      return {
+        date: this.datepipe.transform(new Date(this.fromFirebaseToDate(e.date)), 'dd/MM/yy'),
+        valeur: e.value,
+        description: e.description
+      };
+    });
   }
 
 }

@@ -14,6 +14,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <button (click)="addHapsco()" mat-raised-button color="primary">Valider</button>
+      <a *ngIf="dataSource" csvLink [data]="dataSourceForCsv" [filename]="dateForCsv" mat-raised-button class="download-link" color="primary">Télécharger les données</a>
     </div>
     <div>
       <table mat-table [dataSource]="dataSource" matSort>

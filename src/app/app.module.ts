@@ -4,9 +4,12 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ChartsModule } from 'ng2-charts';
+import { CsvModule } from '@ctrl/ngx-csv';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -39,6 +42,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ChartsModule,
+    CsvModule,
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
