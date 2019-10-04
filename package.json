@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start:lambda": "netlify-lambda serve src/functions",
+    "build:lambda": "netlify-lambda build src/functions"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +31,7 @@
     "chartjs-plugin-annotation": "^0.5.7",
     "core-js": "^2.5.4",
     "firebase": "^6.6.1",
+    "netlify-lambda": "^1.6.3",
     "ng2-charts": "2.2.3",
     "normalize.css": "^8.0.1",
     "regression": "^2.0.1",
