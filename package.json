@@ -5,11 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:lambda": "netlify-lambda serve src/functions",
-    "build:lambda": "netlify-lambda build src/functions"
+    "build:lambda": "netlify-lambda build src/functions",
+    "build:netlify": "ng run build:prod; ng run build:lambda"
   },
   "private": true,
   "dependencies": {
