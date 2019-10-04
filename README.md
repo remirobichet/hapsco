@@ -4,7 +4,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Todo
 
-- implement backup --> w/ netlify function (button click on app)
+- idea for netlify function (feat/backup --> feat/function???)
 - add push notification from app (PMA) every day
-- rework PMA
 - firestore prod mode ?
