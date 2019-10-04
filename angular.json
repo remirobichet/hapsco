@@ -26,6 +26,7 @@
               "src/favicon.ico",
               "src/assets",
               "src/_redirects",
+              "src/firebase-messaging-sw.js",
               "src/manifest.webmanifest"
             ],
             "styles": [

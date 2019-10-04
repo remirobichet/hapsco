@@ -9,6 +9,10 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ChartsModule } from 'ng2-charts';
 import { CsvModule } from '@ctrl/ngx-csv';
+import { MessagingService } from './_services/messaging.service';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
@@ -43,6 +47,9 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ChartsModule,
     CsvModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -64,7 +71,8 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     AngularFirestore,
     DatePipe,
     MatDatepickerModule,
-    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })
