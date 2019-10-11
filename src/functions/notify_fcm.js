@@ -1,6 +1,19 @@
 const request = require('request');
+// @TODO use https://firebase.google.com/docs/reference/rest/database/
+// to get id of devices
 
 exports.handler = function(event, context, callback) {
+  let deviceIds = '';
+
+   request({
+    url: 'https://cloud-firestore-hapsco.firebaseio.com/.json',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }, function(error, response, body) {
+     deviceIds = body.fmcTokens
+  });
 
   return request({
     url: 'https://fcm.googleapis.com/fcm/send',
@@ -14,7 +27,7 @@ exports.handler = function(event, context, callback) {
         title: 'Hapsco',
         body: 'Oublie pas!',
       },
-      to: 'dzFHqs3DkvM:APA91bHA-mUD3SO2ZOclUiqFMHZ0SPfW8A4Hca7pVuQTpbXMtjuvt2CwGceswdeFYKiI4CZjiQIfho18boZcPb2z0240I04BretruS9JQWtoEwFUvBSy4vOx-d_TCBs8dU8x6EIKAFGt'
+      to: deviceIds
     })
   }, function(error, response, body) {
     if (error) {
