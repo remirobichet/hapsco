@@ -34,7 +34,7 @@ export class MessagingService {
     this.angularFireAuth.authState.pipe(take(1)).subscribe(
       () => {
         const data = {};
-        data[userId] = token;
+        data[token] = token;
         this.angularFireDB.object('fcmTokens/').update(data);
       });
   }

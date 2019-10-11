@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
       this.titleService.setTitle(this.title + ' | ' + this.titleDescritpion);
     });
 
-    const userId = 'user001';
+    const userId = 'reminder';
     this.messagingService.requestPermission(userId);
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
