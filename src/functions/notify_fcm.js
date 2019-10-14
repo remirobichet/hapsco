@@ -20,6 +20,7 @@ exports.handler = function(event, context, callback) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        // env stored in netlify
         'Authorization': 'key=' + process.env.FCM_AUTH,
       },
       data: JSON.stringify({
