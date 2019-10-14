@@ -27,7 +27,8 @@ exports.handler = function(event, context, callback) {
         notification: {
           title: 'Hapsco',
           body: 'Oublie pas!',
-          image: '/assets/icons/icon-192x192.png',
+          icon: '/assets/manifest-icons/icon-96x96.png',
+          click_action: 'http://hapsco.remirobichet.fr'
         },
         registration_ids: deviceIds
       })
