@@ -1,45 +1,44 @@
-const request = require('request');
-// @TODO use https://firebase.google.com/docs/reference/rest/database/
-// to get id of devices
+const axios = require('axios')
 
 exports.handler = function(event, context, callback) {
+
   let deviceIds = '';
 
-   request({
-    url: 'https://cloud-firestore-hapsco.firebaseio.com/.json',
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }, function(error, response, body) {
-     deviceIds = body.fmcTokens
-  });
+  // Proxy params for dev from company
+  let httpsProxyAgent = require('https-proxy-agent');
+  let agent = new httpsProxyAgent('http://fr-proxy.groupinfra.com:3128');
+  let config = {
+    httpsAgent: agent
+  };
 
-  return request({
-    url: 'https://fcm.googleapis.com/fcm/send',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'key=AAAASF7PJjg:APA91bECtRYvxgihms660Ml8y1mX_kMIz4E_odkBj03qGM6vVhs8Rb3cJm39jka6Mtc_u-_FE6OgBQQgzaWVbZrT8bpTHoWybVSd945uXl5BacXTfICfnjr8q6p0DwLSN6yuI1q8tN1C',
-    },
-    body: JSON.stringify({
-      notification: {
-        title: 'Hapsco',
-        body: 'Oublie pas!',
+  axios.get('https://cloud-firestore-hapsco.firebaseio.com/fcmTokens.json?format=export')
+  .then((res) => {
+    deviceIds = Object.values(res.data);
+    console.log(deviceIds);
+    return axios.create({
+      url: 'https://fcm.googleapis.com/fcm/send',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=AAAASF7PJjg:APA91bECtRYvxgihms660Ml8y1mX_kMIz4E_odkBj03qGM6vVhs8Rb3cJm39jka6Mtc_u-_FE6OgBQQgzaWVbZrT8bpTHoWybVSd945uXl5BacXTfICfnjr8q6p0DwLSN6yuI1q8tN1C',
       },
-      to: deviceIds
+      data: JSON.stringify({
+        notification: {
+          title: 'Hapsco',
+          body: 'Oublie pas!',
+        },
+        registration_ids: deviceIds
+      })
     })
-  }, function(error, response, body) {
-    if (error) {
-      callback(null, {
-        statusCode: 500,
-        body: body,
-      })
-    } else {
-      callback(null, {
-        statusCode: response.statusCode,
-        body: body,
-      })
-    }
-  });
+  })
+  .then((res) => {
+    return callback(null, {
+        statusCode: 200,
+        body: res.data,
+      }
+    )
+  })
+  .catch((error) => {
+    return callback(error)
+  })
 };
