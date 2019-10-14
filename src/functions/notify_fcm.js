@@ -15,7 +15,7 @@ exports.handler = function(event, context, callback) {
   .then((res) => {
     deviceIds = Object.values(res.data);
     console.log(deviceIds);
-    return axios.create({
+    return axios({
       url: 'https://fcm.googleapis.com/fcm/send',
       method: 'POST',
       headers: {
@@ -32,7 +32,7 @@ exports.handler = function(event, context, callback) {
     })
   })
   .then((res) => {
-    console.log('res :');
+    console.log('Success :');
     console.log(res);
     return callback(null, {
         statusCode: 200,
@@ -41,7 +41,7 @@ exports.handler = function(event, context, callback) {
     )
   })
   .catch((error) => {
-    console.log('error: ');
+    console.log('Error: ');
     console.log(error);
     return callback(error)
   })
