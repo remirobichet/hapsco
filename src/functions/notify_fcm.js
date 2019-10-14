@@ -20,7 +20,7 @@ exports.handler = function(event, context, callback) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'key=${process.env.FCM_AUTH}',
+        'Authorization': 'key=' + process.env.FCM_AUTH,
       },
       data: JSON.stringify({
         notification: {
