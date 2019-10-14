@@ -32,7 +32,8 @@ exports.handler = function(event, context, callback) {
     })
   })
   .then((res) => {
-    console.log('res :', res);
+    console.log('res :');
+    console.log(res);
     return callback(null, {
         statusCode: 200,
         body: res.data,
@@ -40,7 +41,8 @@ exports.handler = function(event, context, callback) {
     )
   })
   .catch((error) => {
-    console.log('error: ', error);
+    console.log('error: ');
+    console.log(error);
     return callback(error)
   })
 };
