@@ -20,12 +20,13 @@ exports.handler = function(event, context, callback) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'key=AAAASF7PJjg:APA91bECtRYvxgihms660Ml8y1mX_kMIz4E_odkBj03qGM6vVhs8Rb3cJm39jka6Mtc_u-_FE6OgBQQgzaWVbZrT8bpTHoWybVSd945uXl5BacXTfICfnjr8q6p0DwLSN6yuI1q8tN1C',
+        'Authorization': 'key=${process.env.FCM_AUTH}',
       },
       data: JSON.stringify({
         notification: {
           title: 'Hapsco',
           body: 'Oublie pas!',
+          image: '/assets/icons/icon-192x192.png',
         },
         registration_ids: deviceIds
       })
