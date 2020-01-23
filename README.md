@@ -50,7 +50,7 @@ This app is generated as a PWA. Thus, end-users can add the app to home screen o
 
 End-users can accepts push notifications to receive a push notification every day as a reminder.
 
-A [cron job](https://cron-job.org) is launched every day to the netilfy function endpoint in order to send the push notification.
+A [cron job](https://ifttt.com/) is launched every day to the netilfy function endpoint in order to send the push notification.
 
 ## Styles & components :lipstick:
 
