@@ -1,6 +1,6 @@
-# Hapsco :chart_with_downwards_trend: :chart_with_upwards_trend:
+# hapsco
 
-Datavisualisation over PWA for personnal use.
+> :chart_with_upwards_trend: Data Visualization over PWA
 
 ## Requirement :hammer_and_wrench:
 
